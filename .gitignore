@@ -1,0 +1,22 @@
+# Runtime
+.env
+.env.runtime
+
+# Logs
+*.log
+logs/
+
+# Runtime directories
+runtime/
+
+# IDE
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,15 @@
+.git
+.gitignore
+
+README.md
+
+runtime/
+
+.env
+.env.runtime
+
+.vscode
+.idea
+
+__pycache__
+*.pyc

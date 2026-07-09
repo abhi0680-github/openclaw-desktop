@@ -1,0 +1,30 @@
+services:
+
+  openclaw-desktop:
+
+    build:
+      context: .
+      args:
+        OPENCLAW_VERSION: latest
+
+    container_name: openclaw-desktop
+
+    restart: unless-stopped
+
+    env_file:
+      - .env
+      - .env.runtime
+
+    ports:
+      - "18789:18789"
+      - "5900:5900"
+      - "6080:6080"
+
+    volumes:
+      - ./config:/config
+      - ./runtime:/runtime
+      - openclaw-home:/home/node/.openclaw
+
+volumes:
+
+  openclaw-home:
