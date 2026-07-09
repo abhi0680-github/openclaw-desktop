@@ -7,43 +7,74 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
-source scripts/lib.sh
+#
+# Detect docker compose
+#
 
-generate_runtime_env()
+if command -v docker-compose >/dev/null 2>&1
+then
+    COMPOSE="docker-compose"
+else
+    COMPOSE="docker compose"
+fi
+
+#
+# Create runtime directories
+#
+
+prepare_runtime()
 {
-    cat > .env.runtime <<EOF
+    mkdir -p \
+        logs \
+        workspace \
+        openclaw-home
+}
+
+#
+# Update UID/GID inside .env
+#
+
+update_env()
+{
+    [ -f .env ] || cp .env.example .env
+
+    grep -v '^HOST_UID=' .env |
+    grep -v '^HOST_GID=' > .env.tmp
+
+    cat >> .env.tmp <<EOF
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
 EOF
+
+    mv .env.tmp .env
 }
 
-require_command docker
-
-generate_runtime_env
+prepare_runtime
+update_env
 
 case "${1:-help}" in
 
 build)
 
-    docker compose build
+    $COMPOSE build
 
 ;;
 
 up)
 
-    docker compose up
+    $COMPOSE up
 
 ;;
 
 down)
 
-    docker compose down
+    $COMPOSE down
 
 ;;
 
 logs)
 
-    docker compose logs -f
+    $COMPOSE logs -f
 
 ;;
 
@@ -55,17 +86,17 @@ shell)
 
 rebuild)
 
-    docker compose down
+    $COMPOSE down
 
-    docker compose build --no-cache
+    $COMPOSE build --no-cache
 
-    docker compose up
+    $COMPOSE up
 
 ;;
 
 clean)
 
-    docker compose down -v
+    $COMPOSE down -v
 
 ;;
 
@@ -79,7 +110,7 @@ health)
 
 cat <<EOF
 
-Usage:
+Usage
 
 build
 up

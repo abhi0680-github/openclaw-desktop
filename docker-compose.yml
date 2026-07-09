@@ -1,7 +1,8 @@
+version: "3.7"
+
 services:
 
   openclaw-desktop:
-
     build:
       context: .
       args:
@@ -13,7 +14,11 @@ services:
 
     env_file:
       - .env
-      - .env.runtime
+
+    environment:
+      DISPLAY_WIDTH: ${DISPLAY_WIDTH}
+      DISPLAY_HEIGHT: ${DISPLAY_HEIGHT}
+      DISPLAY_DEPTH: ${DISPLAY_DEPTH}
 
     ports:
       - "18789:18789"
@@ -22,9 +27,7 @@ services:
 
     volumes:
       - ./config:/config
-      - ./runtime:/runtime
-      - openclaw-home:/home/node/.openclaw
+      - ./logs:/logs
+      - ./workspace:/workspace
+      - ./openclaw-home:/home/node/.openclaw
 
-volumes:
-
-  openclaw-home:
