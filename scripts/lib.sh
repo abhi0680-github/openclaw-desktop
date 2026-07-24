@@ -10,6 +10,7 @@ PROJECT="openclaw-desktop"
 
 CONFIG_DIR="/config"
 LOG_DIR="/logs"
+RUNTIME_DIR="/runtime"
 
 OPENCLAW_HOME="/home/node/.openclaw"
 
