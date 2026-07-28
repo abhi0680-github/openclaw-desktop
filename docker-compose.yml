@@ -30,7 +30,4 @@ services:
       - ./logs:/logs
       - ./workspace:/workspace
       - ./openclaw-home:/home/node/.openclaw
-      # Development only
-      - ./scripts:/opt/openclaw-desktop
-      - ./supervisor:/etc/supervisor
 

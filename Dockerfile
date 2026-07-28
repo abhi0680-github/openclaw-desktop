@@ -23,7 +23,8 @@ RUN apt-get update && \
         supervisor \
         procps \
         ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
 
 RUN wget -qO- https://dl.google.com/linux/linux_signing_key.pub \
     | gpg --dearmor \
@@ -37,5 +38,8 @@ RUN wget -qO- https://dl.google.com/linux/linux_signing_key.pub \
 COPY scripts/ /opt/openclaw-desktop/
 COPY supervisor/ /etc/supervisor/
 RUN chmod +x /opt/openclaw-desktop/*.sh
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD pgrep -f "openclaw gateway" >/dev/null || exit 1
 
 ENTRYPOINT ["/opt/openclaw-desktop/entrypoint.sh"]

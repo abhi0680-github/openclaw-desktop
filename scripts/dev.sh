@@ -106,10 +106,12 @@ health)
 
 ;;
 
+inspect)
+    docker exec -it openclaw-desktop bash
+;;
+
 supervisor)
-
     docker exec -it openclaw-desktop supervisorctl
-
 ;;
 
 *)
