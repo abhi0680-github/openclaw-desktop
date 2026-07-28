@@ -15,4 +15,6 @@ require_command openbox
 
 run_hooks
 
-exec /opt/openclaw-desktop/launcher.sh
+#exec /opt/openclaw-desktop/launcher.sh
+exec /usr/bin/supervisord \
+    -c /etc/supervisor/supervisord.conf

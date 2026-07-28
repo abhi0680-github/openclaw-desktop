@@ -21,3 +21,7 @@ clean:
 
 health:
 	./scripts/dev.sh health
+
+supervisor:
+	./scripts/dev.sh supervisor
+

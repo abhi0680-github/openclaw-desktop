@@ -106,6 +106,12 @@ health)
 
 ;;
 
+supervisor)
+
+    docker exec -it openclaw-desktop supervisorctl
+
+;;
+
 *)
 
 cat <<EOF
